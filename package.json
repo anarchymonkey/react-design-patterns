@@ -1,0 +1,34 @@
+{
+  "name": "react-design-patterns",
+  "version": "1.0.0",
+  "description": "This project is for exploring react advanced design patterns",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "start": "parcel ./public/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anarchymonkey/react-design-patterns.git"
+  },
+  "keywords": [
+    "node",
+    "react",
+    "design-patterns"
+  ],
+  "author": "anarchymonkey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anarchymonkey/react-design-patterns/issues"
+  },
+  "homepage": "https://github.com/anarchymonkey/react-design-patterns#readme",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.9.3",
+    "process": "^0.11.10",
+    "styled-components": "^6.0.7"
+  }
+}
