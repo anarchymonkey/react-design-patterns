@@ -6,6 +6,8 @@ import { RightPane } from "./components/Shared/RightPane"
 import { UserListItem } from "./components/Shared/UserListItem"
 import { useEffect, useState } from "react"
 import { DataConfigLoader } from "./components/DataConfigLoader"
+import { UncontrolledForm } from "./components/Shared/UncontrolledForm"
+import { ControlledForm } from "./components/ControlledForm"
 
 const getUsers = async () => {
     const response = await axios.get('https://dummyjson.com/users')
@@ -20,14 +22,14 @@ const getUserById = async (id) => {
 }
 
 export const App = () => {
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
 
-    useEffect(() => {
-        (async () => {
-            const resp = await getUsers();
-            setUsers(resp)
-        })()
-    }, []);
+    // useEffect(() => {
+    //     (async () => {
+    //         const resp = await getUsers();
+    //         setUsers(resp)
+    //     })()
+    // }, []);
     return (
         <>
             {/* Tutorial 1: Setting up layouts*/}
@@ -38,9 +40,12 @@ export const App = () => {
             {/* Tutorial 2: Setting up iterators */}
             {/* <Mapper items={users} resourceName="user" ItemComponent={UserListItem} /> */}
             {/* Tutorial 3: Data Config Loader (Container Components) */}
-            <DataConfigLoader getData={() => getUserById(4)} resourceName="user">
+            {/* <DataConfigLoader getData={() => getUserById(4)} resourceName="user">
                 <UserListItem />
-            </DataConfigLoader>
+            </DataConfigLoader> */}
+            {/* Tutotial 4: Uncontrolled and Controlled Components */}
+            {/* <UncontrolledForm /> */}
+            <ControlledForm />
         </>
     )
 }
