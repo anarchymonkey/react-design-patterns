@@ -11,6 +11,8 @@ import { ControlledForm } from "./components/ControlledForm"
 import { UncontrolledOnboardingFlow } from "./components/UncontrolledOnboardingFlow"
 import { ControlledOnboradingFlow } from "./components/ControlledOnboardingFlow"
 import { getUserHOC } from "./components/getUserHOC"
+import { UserListItemForm } from "./components/Shared/UserListItemForm"
+import { UserListItemWithHook } from "./components/Shared/UserListItemWIthHook"
 
 const getUsers = async () => {
     const response = await axios.get('https://dummyjson.com/users')
@@ -18,7 +20,7 @@ const getUsers = async () => {
     return response.data.users;
 }
 
-const getUserById = async (id) => {
+export const getUserById = async (id) => {
     const response = await axios.get(`https://dummyjson.com/users/${id}`)
     console.log({ response: response.data });
     return response.data;
@@ -82,7 +84,7 @@ export const App = () => {
         console.log("final data after flow finishes", onboardingData);
         setCurrentIndex(0);
     }
-    
+
     const handleNext = (data) => {
         console.log({ data, onboardingData });
         const newOnboardingData = {
@@ -121,7 +123,15 @@ export const App = () => {
                 <Step4 />
             </ControlledOnboradingFlow> */}
             {/* Tutorial 6: Higher Order Components */}
-            <User />
+            {/* <User /> */}
+            {/* <UserListItemForm /> */}
+            {/* Tutorial 7: Custom Hooks */}
+            <UserListItemWithHook id={1}/>
+            <UserListItemWithHook id={2}/>
+            <UserListItemWithHook id={3}/>
+            <UserListItemWithHook id={4}/>
+
+
         </>
     )
 }
