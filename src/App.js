@@ -9,6 +9,7 @@ import { DataConfigLoader } from "./components/DataConfigLoader"
 import { UncontrolledForm } from "./components/Shared/UncontrolledForm"
 import { ControlledForm } from "./components/ControlledForm"
 import { UncontrolledOnboardingFlow } from "./components/UncontrolledOnboardingFlow"
+import { ControlledOnboradingFlow } from "./components/ControlledOnboardingFlow"
 
 const getUsers = async () => {
     const response = await axios.get('https://dummyjson.com/users')
@@ -22,42 +23,49 @@ const getUserById = async (id) => {
     return response.data;
 }
 
-const handleFinish = (finalData, reset) => {
-    console.log("final data after flow finishes", finalData);
-    reset();
-}
-
 const Step1 = ({ goToNext }) => {
 
-    return(
+    return (
         <>
             <div>Step 1</div>
-            <button onClick={() => goToNext({ name: "Aniket"})}>Next step</button>
+            <button onClick={() => goToNext({ name: "Aniket" })}>Next step</button>
         </>
     )
 }
 
 const Step2 = ({ goToNext }) => {
 
-    return(
+    return (
         <>
             <div>Step 2</div>
-            <button onClick={() => goToNext({ age: 27})}>Next step</button>
+            <button onClick={() => goToNext({ age: 61 })}>Next</button>
         </>
     )
 }
 
 const Step3 = ({ goToNext }) => {
 
-    return(
+    return (
         <>
             <div>Step 3</div>
-            <button onClick={() => goToNext({ hairColor: "Black"})}>Finish</button>
+            <button onClick={() => goToNext({ hairColor: "Black" })}>Next</button>
+        </>
+    )
+}
+
+const Step4 = ({ goToNext }) => {
+
+    return (
+        <>
+            <div>Step 4</div>
+            <button onClick={() => goToNext({ voice: "deep" })}>Finish</button>
         </>
     )
 }
 
 export const App = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [onboardingData, setOnboardingData] = useState({});
     // const [users, setUsers] = useState([]);
 
     // useEffect(() => {
@@ -66,6 +74,21 @@ export const App = () => {
     //         setUsers(resp)
     //     })()
     // }, []);
+
+    const handleFinish = (finalData) => {
+        console.log("final data after flow finishes", onboardingData);
+        setCurrentIndex(0);
+    }
+    
+    const handleNext = (data) => {
+        console.log({ data, onboardingData });
+        const newOnboardingData = {
+            ...onboardingData,
+            ...data,
+        }
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+        setOnboardingData(newOnboardingData);
+    }
     return (
         <>
             {/* Tutorial 1: Setting up layouts*/}
@@ -83,11 +106,17 @@ export const App = () => {
             {/* <UncontrolledForm /> */}
             {/* <ControlledForm /> */}
             {/* Tutotial 5: Uncontrolled Onboarding flow */}
-            <UncontrolledOnboardingFlow onFinish={handleFinish}>
+            {/* <UncontrolledOnboardingFlow onFinish={handleFinish}>
                 <Step1 />
                 <Step2 />
                 <Step3 />
-            </UncontrolledOnboardingFlow>
+            </UncontrolledOnboardingFlow> */}
+            <ControlledOnboradingFlow onFinish={handleFinish} onNext={handleNext} currentIndex={currentIndex}>
+                <Step1 />
+                <Step2 />
+                {onboardingData.age > 60 && <Step3 />}
+                <Step4 />
+            </ControlledOnboradingFlow>
 
         </>
     )
