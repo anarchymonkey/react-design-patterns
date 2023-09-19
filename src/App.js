@@ -10,6 +10,7 @@ import { UncontrolledForm } from "./components/Shared/UncontrolledForm"
 import { ControlledForm } from "./components/ControlledForm"
 import { UncontrolledOnboardingFlow } from "./components/UncontrolledOnboardingFlow"
 import { ControlledOnboradingFlow } from "./components/ControlledOnboardingFlow"
+import { getUserHOC } from "./components/getUserHOC"
 
 const getUsers = async () => {
     const response = await axios.get('https://dummyjson.com/users')
@@ -63,6 +64,8 @@ const Step4 = ({ goToNext }) => {
     )
 }
 
+const User = getUserHOC(UserListItem, 'user', () => getUserById(5));
+
 export const App = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [onboardingData, setOnboardingData] = useState({});
@@ -111,13 +114,14 @@ export const App = () => {
                 <Step2 />
                 <Step3 />
             </UncontrolledOnboardingFlow> */}
-            <ControlledOnboradingFlow onFinish={handleFinish} onNext={handleNext} currentIndex={currentIndex}>
+            {/* <ControlledOnboradingFlow onFinish={handleFinish} onNext={handleNext} currentIndex={currentIndex}>
                 <Step1 />
                 <Step2 />
                 {onboardingData.age > 60 && <Step3 />}
                 <Step4 />
-            </ControlledOnboradingFlow>
-
+            </ControlledOnboradingFlow> */}
+            {/* Tutorial 6: Higher Order Components */}
+            <User />
         </>
     )
 }
