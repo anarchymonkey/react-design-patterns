@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { DataConfigLoader } from "./components/DataConfigLoader"
 import { UncontrolledForm } from "./components/Shared/UncontrolledForm"
 import { ControlledForm } from "./components/ControlledForm"
+import { UncontrolledOnboardingFlow } from "./components/UncontrolledOnboardingFlow"
 
 const getUsers = async () => {
     const response = await axios.get('https://dummyjson.com/users')
@@ -19,6 +20,41 @@ const getUserById = async (id) => {
     const response = await axios.get(`https://dummyjson.com/users/${id}`)
     console.log({ response: response.data });
     return response.data;
+}
+
+const handleFinish = (finalData, reset) => {
+    console.log("final data after flow finishes", finalData);
+    reset();
+}
+
+const Step1 = ({ goToNext }) => {
+
+    return(
+        <>
+            <div>Step 1</div>
+            <button onClick={() => goToNext({ name: "Aniket"})}>Next step</button>
+        </>
+    )
+}
+
+const Step2 = ({ goToNext }) => {
+
+    return(
+        <>
+            <div>Step 2</div>
+            <button onClick={() => goToNext({ age: 27})}>Next step</button>
+        </>
+    )
+}
+
+const Step3 = ({ goToNext }) => {
+
+    return(
+        <>
+            <div>Step 3</div>
+            <button onClick={() => goToNext({ hairColor: "Black"})}>Finish</button>
+        </>
+    )
 }
 
 export const App = () => {
@@ -45,7 +81,14 @@ export const App = () => {
             </DataConfigLoader> */}
             {/* Tutotial 4: Uncontrolled and Controlled Components */}
             {/* <UncontrolledForm /> */}
-            <ControlledForm />
+            {/* <ControlledForm /> */}
+            {/* Tutotial 5: Uncontrolled Onboarding flow */}
+            <UncontrolledOnboardingFlow onFinish={handleFinish}>
+                <Step1 />
+                <Step2 />
+                <Step3 />
+            </UncontrolledOnboardingFlow>
+
         </>
     )
 }
